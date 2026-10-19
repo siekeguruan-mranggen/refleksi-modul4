@@ -16,18 +16,22 @@
                 <span class="bg-amber-400 text-slate-950 text-xs font-bold px-3 py-1 rounded-full uppercase">Panel Admin</span>
                 <h1 class="text-xl font-bold mt-2">Monitoring & Rekapitulasi Refleksi Peserta</h1>
             </div>
-            <div class="flex flex-wrap gap-3">
+            <div class="flex flex-wrap gap-2">
                 <!-- Tombol Kunci / Buka Form -->
-                <button id="lockBtn" onclick="toggleLockForm()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs px-4 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5">
-                    🔒 <span id="lockStatusText">Kunci Form Peserta</span>
+                <button id="lockBtn" onclick="toggleLockForm()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5">
+                    🔒 <span id="lockStatusText">Kunci Form</span>
                 </button>
                 <!-- Tombol Download CSV -->
-                <button onclick="downloadCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium px-4 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5">
-                    📥 Download CSV
+                <button onclick="downloadCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5">
+                    📥 CSV
                 </button>
-                <!-- Tombol Cetak / PDF Terurut Per Sekolah -->
-                <button onclick="printPDFReport()" class="bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-medium px-4 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5">
-                    🖨️ Cetak Rekap PDF Per Sekolah
+                <!-- Tombol Cetak / PDF Terurut Per Sekolah (Menyesuaikan Filter) -->
+                <button onclick="printPDFReport()" class="bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-medium px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5">
+                    🖨️ Cetak PDF
+                </button>
+                <!-- Tombol Reset Data untuk Hari Rabu -->
+                <button onclick="resetAllData()" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5">
+                    🗑️ Reset Data
                 </button>
             </div>
         </div>
@@ -46,7 +50,7 @@
             </div>
 
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center">
-                <label class="block text-xs font-semibold text-slate-600 mb-1">🔍 Filter Berdasarkan Sekolah / Unit Kerja:</label>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">🔍 Filter Berdasarkan Sekolah / Unit Kerja (Juga untuk Cetak PDF):</label>
                 <select id="filterSekolah" onchange="filterData()" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-800 focus:ring-2 focus:ring-teal-500">
                     <option value="">-- Tampilkan Semua Sekolah --</option>
                     <option value="SD NEGERI BANDUNGREJO 1 MRANGGEN">SD NEGERI BANDUNGREJO 1 MRANGGEN</option>
@@ -143,7 +147,7 @@
     <!-- Firebase SDK & Script Admin -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, query, orderBy, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, query, orderBy, doc, getDocs, deleteDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAlg5kJmxB5sjNAPkiZIeRHiunEfDAVwQ",
@@ -158,6 +162,7 @@
         const db = getFirestore(app);
 
         let allData = [];
+        let filteredData = [];
         let isFormLocked = false;
 
         // Pantau status lock form
@@ -166,12 +171,12 @@
             const statusText = document.getElementById('lockStatusText');
             if (docSnap.exists() && docSnap.data().isLocked) {
                 isFormLocked = true;
-                btn.className = "bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5";
-                statusText.innerText = "Buka Kembali Form";
+                btn.className = "bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5";
+                statusText.innerText = "Buka Form";
             } else {
                 isFormLocked = false;
-                btn.className = "bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs px-4 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5";
-                statusText.innerText = "Kunci Form Peserta";
+                btn.className = "bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5";
+                statusText.innerText = "Kunci Form";
             }
         });
 
@@ -188,20 +193,20 @@
         const q = query(collection(db, "refleksi_modul4"), orderBy("createdAt", "desc"));
         onSnapshot(q, (snapshot) => {
             allData = [];
-            snapshot.forEach((doc) => {
-                allData.push(doc.data());
+            snapshot.forEach((docSnap) => {
+                allData.push({ id: docSnap.id, ...docSnap.data() });
             });
-            renderTable(allData);
+            filterData();
         });
 
         window.filterData = function() {
             const selectedSchool = document.getElementById('filterSekolah').value;
             if (!selectedSchool) {
-                renderTable(allData);
+                filteredData = allData;
             } else {
-                const filtered = allData.filter(item => item.instansi === selectedSchool);
-                renderTable(filtered);
+                filteredData = allData.filter(item => item.instansi === selectedSchool);
             }
+            renderTable(filteredData);
         }
 
         function renderTable(dataArray) {
@@ -235,13 +240,13 @@
         }
 
         window.downloadCSV = function() {
-            if (allData.length === 0) {
-                alert("Belum ada data untuk didownload!");
+            if (filteredData.length === 0) {
+                alert("Tidak ada data untuk didownload!");
                 return;
             }
 
             let csvContent = "data:text/csv;charset=utf-8,Waktu,Nama,Unit Kerja,Evaluasi Praktik,Perasaan Murid,Pemahaman Baru,Tantangan,Rencana Aksi\n";
-            allData.forEach(row => {
+            filteredData.forEach(row => {
                 const time = row.createdAt ? new Date(row.createdAt.seconds * 1000).toLocaleString() : '';
                 csvContent += `"${time}","${row.nama}","${row.instansi}","${row.p1.replace(/"/g, '""')}","${row.p2.replace(/"/g, '""')}","${row.p3.replace(/"/g, '""')}","${row.p4.replace(/"/g, '""')}","${row.p5.replace(/"/g, '""')}"\n`;
             });
@@ -256,13 +261,16 @@
         }
 
         window.printPDFReport = function() {
-            if (allData.length === 0) {
-                alert("Belum ada data untuk dicetak!");
+            if (filteredData.length === 0) {
+                alert("Tidak ada data untuk dicetak!");
                 return;
             }
 
-            // Urutkan data berdasarkan Nama Sekolah (instansi) secara alfabetis (A-Z)
-            let sortedData = [...allData].sort((a, b) => {
+            const selectedSchool = document.getElementById('filterSekolah').value;
+            let titleText = selectedSchool ? `REKAPITULASI SEKOLAH: ${selectedSchool}` : "REKAPITULASI KESELURUHAN (DIURUTKAN PER SEKOLAH)";
+
+            // Urutkan berdasarkan sekolah secara alfabetis (A-Z)
+            let sortedData = [...filteredData].sort((a, b) => {
                 let schoolA = (a.instansi || "").toUpperCase();
                 let schoolB = (b.instansi || "").toUpperCase();
                 if (schoolA < schoolB) return -1;
@@ -274,7 +282,7 @@
             let htmlContent = `
                 <html>
                 <head>
-                    <title>Rekapitulasi Berdasarkan Sekolah - Modul 4 Mranggen</title>
+                    <title>Cetak Rekap PDF - Modul 4 Mranggen</title>
                     <style>
                         body { font-family: sans-serif; padding: 20px; color: #333; }
                         h1 { text-align: center; font-size: 16px; margin-bottom: 5px; }
@@ -286,7 +294,7 @@
                     </style>
                 </head>
                 <body>
-                    <h1>REKAPITULASI HASIL REFLEKSI (DIURUTKAN PER SEKOLAH)</h1>
+                    <h1>${titleText}</h1>
                     <h2>Kegiatan Guru Belajar Kecamatan Mranggen - Modul 4 Pertemuan 3</h2>
                     <table>
                         <thead>
@@ -335,6 +343,24 @@
             setTimeout(() => {
                 printWindow.print();
             }, 500);
+        }
+
+        window.resetAllData = async function() {
+            if (confirm("PERINGATAN: Apakah Anda yakin ingin MENGHAPUS SEMUA DATA rekapitulasi refleksi? Tindakan ini tidak dapat dibatalkan dan data akan bersih untuk kegiatan hari Rabu!")) {
+                if (confirm("Konfirmasi sekali lagi: Yakin ingin menghapus seluruh data di database?")) {
+                    try {
+                        const querySnapshot = await getDocs(collection(db, "refleksi_modul4"));
+                        let deletePromises = [];
+                        querySnapshot.forEach((docSnap) => {
+                            deletePromises.push(deleteDoc(doc(db, "refleksi_modul4", docSnap.id)));
+                        });
+                        await Promise.all(deletePromises);
+                        alert("Semua data berhasil dibersihkan! Database kini bersih untuk sesi berikutnya.");
+                    } catch (err) {
+                        alert("Gagal mereset data: " + err.message);
+                    }
+                }
+            }
         }
 
         function escapeHtml(text) {
