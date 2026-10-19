@@ -10,7 +10,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between">
 
-    <header class="bg-gradient-to-r from-teal-800 to-cyan-900 text-white shadow-md">
+    <header class="bg-gradient-to-r from-teal-700 to-cyan-800 text-white shadow-md">
         <div class="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div>
                 <span class="bg-amber-400 text-slate-950 text-xs font-bold px-3 py-1 rounded-full uppercase">Panel Admin</span>
@@ -25,24 +25,88 @@
                 <button onclick="downloadCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium px-4 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5">
                     📥 Download CSV
                 </button>
-                <!-- Tombol Cetak / PDF per Sekolah -->
+                <!-- Tombol Cetak / PDF Terurut Per Sekolah -->
                 <button onclick="printPDFReport()" class="bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-medium px-4 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5">
-                    🖨️ Cetak Rekap PDF / Sekolah
+                    🖨️ Cetak Rekap PDF Per Sekolah
                 </button>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 py-8 w-full flex-grow">
-        <!-- Statistik Singkat -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                <p class="text-xs text-slate-500 font-medium">Total Respon Masuk</p>
-                <h3 class="text-3xl font-bold text-teal-700 mt-1" id="totalRespon">0</h3>
+    <main class="max-w-7xl mx-auto px-6 py-8 w-full flex-grow space-y-6">
+        
+        <!-- BARIS STATISTIK & FILTER SEKOLAH -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                <div>
+                    <p class="text-xs text-slate-500 font-medium">Total Respon Masuk</p>
+                    <h3 class="text-3xl font-bold text-teal-700 mt-1" id="totalRespon">0</h3>
+                </div>
+                <div class="text-3xl">📊</div>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center">
+                <label class="block text-xs font-semibold text-slate-600 mb-1">🔍 Filter Berdasarkan Sekolah / Unit Kerja:</label>
+                <select id="filterSekolah" onchange="filterData()" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-800 focus:ring-2 focus:ring-teal-500">
+                    <option value="">-- Tampilkan Semua Sekolah --</option>
+                    <option value="SD NEGERI BANDUNGREJO 1 MRANGGEN">SD NEGERI BANDUNGREJO 1 MRANGGEN</option>
+                    <option value="SD NEGERI BANDUNGREJO 2 MRANGGEN">SD NEGERI BANDUNGREJO 2 MRANGGEN</option>
+                    <option value="SD NEGERI BANYUMENENG 1">SD NEGERI BANYUMENENG 1</option>
+                    <option value="SD NEGERI BANYUMENENG 2">SD NEGERI BANYUMENENG 2</option>
+                    <option value="SD NEGERI BATURSARI 1">SD NEGERI BATURSARI 1</option>
+                    <option value="SD NEGERI BATURSARI 2">SD NEGERI BATURSARI 2</option>
+                    <option value="SD NEGERI BATURSARI 3">SD NEGERI BATURSARI 3</option>
+                    <option value="SD NEGERI BATURSARI 4">SD NEGERI BATURSARI 4</option>
+                    <option value="SD NEGERI BATURSARI 5">SD NEGERI BATURSARI 5</option>
+                    <option value="SD NEGERI BATURSARI 6">SD NEGERI BATURSARI 6</option>
+                    <option value="SD NEGERI BATURSARI 7">SD NEGERI BATURSARI 7</option>
+                    <option value="SD NEGERI BRUMBUNG">SD NEGERI BRUMBUNG</option>
+                    <option value="SD NEGERI CANDISARI 1">SD NEGERI CANDISARI 1</option>
+                    <option value="SD NEGERI CANDISARI 2">SD NEGERI CANDISARI 2</option>
+                    <option value="SD NEGERI JAMUS 1">SD NEGERI JAMUS 1</option>
+                    <option value="SD NEGERI KALITENGAH 1">SD NEGERI KALITENGAH 1</option>
+                    <option value="SD NEGERI KALITENGAH 2">SD NEGERI KALITENGAH 2</option>
+                    <option value="SD NEGERI KANGKUNG 1">SD NEGERI KANGKUNG 1</option>
+                    <option value="SD NEGERI KANGKUNG 2">SD NEGERI KANGKUNG 2</option>
+                    <option value="SD NEGERI KANGKUNG 3">SD NEGERI KANGKUNG 3</option>
+                    <option value="SD NEGERI KARANGASEM">SD NEGERI KARANGASEM</option>
+                    <option value="SD NEGERI KARANGSONO 1">SD NEGERI KARANGSONO 1</option>
+                    <option value="SD NEGERI KARANGSONO 2">SD NEGERI KARANGSONO 2</option>
+                    <option value="SD NEGERI KARANGSONO 3">SD NEGERI KARANGSONO 3</option>
+                    <option value="SD NEGERI KEBONBATUR 1">SD NEGERI KEBONBATUR 1</option>
+                    <option value="SD NEGERI KEBONBATUR 2">SD NEGERI KEBONBATUR 2</option>
+                    <option value="SD NEGERI KEMBANGARUM 1">SD NEGERI KEMBANGARUM 1</option>
+                    <option value="SD NEGERI KEMBANGARUM 2">SD NEGERI KEMBANGARUM 2</option>
+                    <option value="SD NEGERI KEMBANGARUM 4">SD NEGERI KEMBANGARUM 4</option>
+                    <option value="SD NEGERI MENUR">SD NEGERI MENUR</option>
+                    <option value="SD NEGERI MRANGGEN 1">SD NEGERI MRANGGEN 1</option>
+                    <option value="SD NEGERI MRANGGEN 2">SD NEGERI MRANGGEN 2</option>
+                    <option value="SD NEGERI MRANGGEN 3">SD NEGERI MRANGGEN 3</option>
+                    <option value="SD NEGERI MRANGGEN 4">SD NEGERI MRANGGEN 4</option>
+                    <option value="SD NEGERI NGEMPLAK">SD NEGERI NGEMPLAK</option>
+                    <option value="SD NEGERI SUMBEREJO 1">SD NEGERI SUMBEREJO 1</option>
+                    <option value="SD NEGERI SUMBEREJO 2">SD NEGERI SUMBEREJO 2</option>
+                    <option value="SD NEGERI TAMANSARI 1">SD NEGERI TAMANSARI 1</option>
+                    <option value="SD NEGERI TEGALARUM 1">SD NEGERI TEGALARUM 1</option>
+                    <option value="SD NEGERI TEGALARUM 2">SD NEGERI TEGALARUM 2</option>
+                    <option value="SD NEGERI WARU">SD NEGERI WARU</option>
+                    <option value="SD NEGERI WRINGINJAJAR 1">SD NEGERI WRINGINJAJAR 1</option>
+                    <option value="SD NEGERI WRINGINJAJAR 3">SD NEGERI WRINGINJAJAR 3</option>
+                    <option value="SDS INSAN TELADAN">SDS INSAN TELADAN</option>
+                    <option value="SDS ISLAM DIPONEGORO">SDS ISLAM DIPONEGORO</option>
+                    <option value="SDS ISLAM KAFRAWI">SDS ISLAM KAFRAWI</option>
+                    <option value="SDS IT AZ-ZAHRO MRANGGEN">SDS IT AZ-ZAHRO MRANGGEN</option>
+                    <option value="SDS IT MIFTAHUL HIDAYAH">SDS IT MIFTAHUL HIDAYAH</option>
+                    <option value="SDS IT PERMATA BUNDA">SDS IT PERMATA BUNDA</option>
+                    <option value="SDS KRISTEN DIAN WACANA">SDS KRISTEN DIAN WACANA</option>
+                    <option value="SDS KY AGENG GIRI">SDS KY AGENG GIRI</option>
+                    <option value="SDS MUHAMMADIYAH PUCANG GADING">SDS MUHAMMADIYAH PUCANG GADING</option>
+                    <option value="SDS TERPADU DARUNNAJAH">SDS TERPADU DARUNNAJAH</option>
+                </select>
             </div>
         </div>
 
-        <!-- Tabel Daftar Jawaban -->
+        <!-- TABEL DAFTAR JAWABAN -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
             <div class="p-4 border-b border-slate-200 bg-teal-50/50 flex justify-between items-center">
                 <h2 class="font-semibold text-teal-900 text-sm">Daftar Pekerjaan & Jawaban Peserta (Real-time)</h2>
@@ -124,20 +188,34 @@
         const q = query(collection(db, "refleksi_modul4"), orderBy("createdAt", "desc"));
         onSnapshot(q, (snapshot) => {
             allData = [];
+            snapshot.forEach((doc) => {
+                allData.push(doc.data());
+            });
+            renderTable(allData);
+        });
+
+        window.filterData = function() {
+            const selectedSchool = document.getElementById('filterSekolah').value;
+            if (!selectedSchool) {
+                renderTable(allData);
+            } else {
+                const filtered = allData.filter(item => item.instansi === selectedSchool);
+                renderTable(filtered);
+            }
+        }
+
+        function renderTable(dataArray) {
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = '';
 
-            if (snapshot.empty) {
-                tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-slate-400">Belum ada data refleksi masuk.</td></tr>`;
-                document.getElementById('totalRespon').innerText = "0";
+            document.getElementById('totalRespon').innerText = dataArray.length;
+
+            if (dataArray.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-slate-400">Belum ada data refleksi yang sesuai.</td></tr>`;
                 return;
             }
 
-            document.getElementById('totalRespon').innerText = snapshot.size;
-
-            snapshot.forEach((doc) => {
-                const data = doc.data();
-                allData.push(data);
+            dataArray.forEach((data) => {
                 const timeString = data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Baru saja';
 
                 const tr = document.createElement('tr');
@@ -154,7 +232,7 @@
                 `;
                 tbody.appendChild(tr);
             });
-        });
+        }
 
         window.downloadCSV = function() {
             if (allData.length === 0) {
@@ -183,30 +261,39 @@
                 return;
             }
 
+            // Urutkan data berdasarkan Nama Sekolah (instansi) secara alfabetis (A-Z)
+            let sortedData = [...allData].sort((a, b) => {
+                let schoolA = (a.instansi || "").toUpperCase();
+                let schoolB = (b.instansi || "").toUpperCase();
+                if (schoolA < schoolB) return -1;
+                if (schoolA > schoolB) return 1;
+                return 0;
+            });
+
             let printWindow = window.open('', '_blank');
             let htmlContent = `
                 <html>
                 <head>
-                    <title>Rekapitulasi Refleksi Modul 4 - Kecamatan Mranggen</title>
+                    <title>Rekapitulasi Berdasarkan Sekolah - Modul 4 Mranggen</title>
                     <style>
                         body { font-family: sans-serif; padding: 20px; color: #333; }
-                        h1 { text-align: center; font-size: 18px; margin-bottom: 5px; }
-                        h2 { text-align: center; font-size: 14px; color: #555; margin-bottom: 20px; }
+                        h1 { text-align: center; font-size: 16px; margin-bottom: 5px; }
+                        h2 { text-align: center; font-size: 13px; color: #555; margin-bottom: 20px; }
                         table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 11px; }
-                        th, td { border: 1px solid #ddd; padding: 6px; text-align: left; vertical-align: top; }
+                        th, td { border: 1px solid #ccc; padding: 6px; text-align: left; vertical-align: top; }
                         th { background-color: #f2f2f2; }
-                        .footer { margin-top: 30px; text-align: right; font-size: 12px; }
+                        .footer { margin-top: 30px; text-align: right; font-size: 11px; }
                     </style>
                 </head>
                 <body>
-                    <h1>REKAPITULASI HASIL REFLEKSI PERTEMUAN KE-3 MODUL 4</h1>
-                    <h2>Kegiatan Guru Belajar Kecamatan Mranggen</h2>
+                    <h1>REKAPITULASI HASIL REFLEKSI (DIURUTKAN PER SEKOLAH)</h1>
+                    <h2>Kegiatan Guru Belajar Kecamatan Mranggen - Modul 4 Pertemuan 3</h2>
                     <table>
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Guru & Gelar</th>
                                 <th>Unit Kerja / Sekolah</th>
+                                <th>Nama Guru & Gelar</th>
                                 <th>1. Evaluasi Praktik</th>
                                 <th>2. Perasaan Murid</th>
                                 <th>3. Pemahaman Baru</th>
@@ -217,12 +304,12 @@
                         <tbody>
             `;
 
-            allData.forEach((row, index) => {
+            sortedData.forEach((row, index) => {
                 htmlContent += `
                     <tr>
                         <td>${index + 1}</td>
-                        <td><b>${escapeHtml(row.nama)}</b></td>
-                        <td>${escapeHtml(row.instansi)}</td>
+                        <td><b>${escapeHtml(row.instansi)}</b></td>
+                        <td>${escapeHtml(row.nama)}</td>
                         <td>${escapeHtml(row.p1)}</td>
                         <td>${escapeHtml(row.p2)}</td>
                         <td>${escapeHtml(row.p3)}</td>
