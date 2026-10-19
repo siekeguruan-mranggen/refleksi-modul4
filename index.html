@@ -84,19 +84,18 @@
         <p>&copy; 2026 Workshop Modul 4 • Real-time Reflection System</p>
     </footer>
 
-    <!-- Firebase SDK (Contoh Integrasi Realtime) -->
+    <!-- Firebase SDK & Konfigurasi -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addTimestamp, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // Konfigurasi Firebase Anda (Ganti dengan kunci proyek Firebase Anda)
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "AIzaSyAlg5kJmxB5sjNAPkiZIeRHiunEfDAVwQ",
+            authDomain: "refleksi-modul4.firebaseapp.com",
+            projectId: "refleksi-modul4",
+            storageBucket: "refleksi-modul4.firebasestorage.app",
+            messagingSenderId: "1028240114547",
+            appId: "1:1028240114547:web:7bb71a6ee1628e08a8bb06"
         };
 
         const app = initializeApp(firebaseConfig);
