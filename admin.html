@@ -43,8 +43,8 @@
 
     <main class="max-w-7xl mx-auto px-6 py-8 w-full flex-grow space-y-6">
         
-        <!-- BARIS STATISTIK & FILTER SEKOLAH -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <!-- STATUS INDIKATOR & STATISTIK -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
                 <div>
                     <p class="text-xs text-slate-500 font-medium">Total Respon Masuk</p>
@@ -54,7 +54,14 @@
             </div>
 
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center">
-                <label class="block text-xs font-semibold text-slate-600 mb-1">🔍 Filter Berdasarkan Sekolah / Unit Kerja (Juga untuk Cetak PDF):</label>
+                <p class="text-xs text-slate-500 font-medium mb-1">Status Sesi Peserta:</p>
+                <div id="statusBadge" class="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-xl text-xs font-bold w-fit border border-emerald-200">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Form Dibuka (Peserta Bisa Mengisi)
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center">
+                <label class="block text-xs font-semibold text-slate-600 mb-1">🔍 Filter Berdasarkan Sekolah:</label>
                 <select id="filterSekolah" onchange="filterData()" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-800 focus:ring-2 focus:ring-teal-500">
                     <option value="">-- Tampilkan Semua Sekolah --</option>
                     <option value="SD NEGERI BANDUNGREJO 1 MRANGGEN">SD NEGERI BANDUNGREJO 1 MRANGGEN</option>
@@ -168,10 +175,26 @@
         let allData = [];
         let filteredData = [];
 
+        // Pantau status lock form secara real-time
+        onSnapshot(doc(db, "settings", "form_status"), (docSnap) => {
+            const badge = document.getElementById('statusBadge');
+            if (docSnap.exists() && docSnap.data().isLocked) {
+                badge.className = "inline-flex items-center gap-2 px-3 py-1.5 bg-rose-50 text-rose-700 rounded-xl text-xs font-bold w-fit border border-rose-200";
+                badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-rose-500"></span> Form Dikunci (Sesi Ditutup)`;
+            } else {
+                badge.className = "inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-xl text-xs font-bold w-fit border border-emerald-200";
+                badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Form Dibuka (Peserta Bisa Mengisi)`;
+            }
+        });
+
         window.setFormLock = async function(status) {
             try {
                 await setDoc(doc(db, "settings", "form_status"), { isLocked: status });
-                alert(status ? "Form berhasil DIKUNCI! Peserta tidak dapat mengirim jawaban." : "Form berhasil DIBUKA KEMBALI!");
+                if(status) {
+                    alert("🔒 BERHASIL: Form pengisian telah DIKUNCI. Peserta tidak dapat mengirim jawaban.");
+                } else {
+                    alert("🔓 BERHASIL: Form pengisian telah DIBUKA KEMBALI. Peserta dapat mengisi kembali.");
+                }
             } catch (err) {
                 alert("Gagal mengubah status form: " + err.message);
             }
@@ -326,7 +349,7 @@
             printWindow.document.write(htmlContent);
             printWindow.document.close();
             printWindow.focus();
-            setTimeout => {
+            setTimeout(() => {
                 printWindow.print();
             }, 500);
         }
