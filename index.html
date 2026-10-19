@@ -8,43 +8,43 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
-<body class="bg-gradient-to-br from-teal-900 via-cyan-900 to-slate-900 text-slate-100 min-h-screen flex flex-col justify-between">
+<body class="bg-gradient-to-br from-slate-50 via-teal-50/40 to-sky-50 text-slate-700 min-h-screen flex flex-col justify-between">
 
-    <header class="bg-gradient-to-r from-teal-700 via-cyan-700 to-blue-700 text-white shadow-xl border-b border-teal-600/30">
+    <header class="bg-gradient-to-r from-teal-600 to-cyan-700 text-white shadow-md">
         <div class="max-w-3xl mx-auto px-4 py-8 text-center">
-            <span class="bg-amber-400/20 backdrop-blur-md text-amber-300 border border-amber-400/30 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Modul 4 • Pertemuan 3</span>
-            <h1 class="text-2xl sm:text-4xl font-extrabold mt-2 tracking-tight">Kegiatan Guru Belajar</h1>
-            <p class="text-teal-100 text-xs sm:text-sm mt-1 font-medium">Kecamatan Mranggen - Pembelajaran Berdiferensiasi</p>
+            <span class="bg-white/20 backdrop-blur-md text-white text-xs font-medium px-3 py-1 rounded-full uppercase tracking-wider">Modul 4 • Pertemuan 3</span>
+            <h1 class="text-2xl sm:text-4xl font-bold mt-2">Kegiatan Guru Belajar</h1>
+            <p class="text-teal-100 text-xs sm:text-sm mt-1">Kecamatan Mranggen - Pembelajaran Berdiferensiasi</p>
         </div>
     </header>
 
     <main class="max-w-3xl mx-auto px-4 py-8 w-full flex-grow">
         
         <!-- PEMBERITAHUAN JIKA FORM DIKUNCI ADMIN -->
-        <div id="lockedState" class="hidden bg-slate-900/90 backdrop-blur-xl p-8 rounded-3xl shadow-2xl border border-rose-500/30 text-center space-y-4">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-rose-500/20 text-rose-400 rounded-full text-2xl border border-rose-500/30">🔒</div>
-            <h2 class="text-2xl font-bold text-white">Sesi Refleksi Telah Ditutup</h2>
-            <p class="text-sm text-slate-300 max-w-md mx-auto">
+        <div id="lockedState" class="hidden bg-white p-8 rounded-3xl shadow-lg border border-rose-100 text-center space-y-4">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-rose-50 text-rose-500 rounded-full text-2xl">🔒</div>
+            <h2 class="text-2xl font-bold text-slate-800">Sesi Refleksi Telah Ditutup</h2>
+            <p class="text-sm text-slate-500 max-w-md mx-auto">
                 Maaf, saat ini fasilitator/admin telah mengunci form pengisian refleksi. Silakan hubungi panitia atau fasilitator kegiatan Anda.
             </p>
         </div>
 
-        <!-- KONTEN UTAMA APLIKASI (Warna Kotak Teduh: Biru Tosca & Kuning Telur) -->
-        <div id="mainAppContainer" class="bg-gradient-to-br from-teal-800/90 via-cyan-900/90 to-slate-900/90 backdrop-blur-xl p-6 sm:p-8 rounded-3xl shadow-2xl border border-teal-500/30 text-slate-100">
+        <!-- KONTEN UTAMA APLIKASI (Kotak Putih Bersih & Elegan) -->
+        <div id="mainAppContainer" class="bg-white p-6 sm:p-8 rounded-3xl shadow-xl border border-slate-100 text-slate-800">
             
             <!-- LANGKAH 0: LANDING PAGE AWAL -->
             <div id="stepLanding" class="text-center py-8 space-y-6">
-                <!-- Ikon Anak Panah / Target Sasaran (Bullseye) -->
-                <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-tr from-amber-400 to-orange-500 rounded-3xl shadow-xl text-5xl animate-bounce text-slate-900 border-2 border-amber-300">
+                <!-- Ikon Target / Anak Panah yang Elegan -->
+                <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-tr from-amber-100 to-amber-200 rounded-3xl shadow-md text-5xl border border-amber-300">
                     🎯
                 </div>
                 <div class="space-y-2">
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Refleksi Pertemuan Ke-3</h2>
-                    <p class="text-sm text-teal-100 max-w-md mx-auto leading-relaxed">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800">Refleksi Pertemuan Ke-3</h2>
+                    <p class="text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
                         Mari sejenak mengevaluasi praktik mengajar, merenungkan kebutuhan murid, dan merancang aksi nyata pembelajaran berdiferensiasi secara tepat sasaran.
                     </p>
                 </div>
-                <button onclick="startWizard()" class="px-8 py-4 bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-slate-950 font-extrabold text-base rounded-2xl shadow-xl shadow-amber-500/20 transition transform hover:-translate-y-0.5">
+                <button onclick="startWizard()" class="px-8 py-4 bg-teal-600 hover:bg-teal-700 text-white font-bold text-base rounded-2xl shadow-md transition transform hover:-translate-y-0.5">
                     KLIK UNTUK MEMULAI 🚀
                 </button>
             </div>
@@ -54,128 +54,128 @@
                 
                 <!-- TAHAP 1: PENGISIAN IDENTITAS -->
                 <div id="stepIdentity" class="space-y-4">
-                    <div class="border-b border-teal-600/40 pb-3 mb-4">
-                        <h3 class="font-bold text-amber-300 text-base flex items-center gap-2">👤 Langkah 1: Identitas Peserta</h3>
-                        <p class="text-xs text-teal-200">Silakan masukkan nama lengkap beserta gelar dan pilih unit kerja Anda.</p>
+                    <div class="border-b border-slate-100 pb-3 mb-4">
+                        <h3 class="font-bold text-teal-800 text-base flex items-center gap-2">👤 Langkah 1: Identitas Peserta</h3>
+                        <p class="text-xs text-slate-500">Silakan masukkan nama lengkap beserta gelar dan pilih unit kerja Anda.</p>
                     </div>
 
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-teal-100 mb-1">Nama Lengkap & Gelar</label>
-                            <input type="text" id="nama" class="w-full px-3 py-2.5 bg-teal-950/60 border border-teal-600/50 rounded-xl focus:ring-2 focus:ring-amber-400 text-white placeholder-teal-400/60 text-sm" placeholder="cth: Muhammad Imam Suwiji, S.Pd.SD., M.Pd.">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Nama Lengkap & Gelar</label>
+                            <input type="text" id="nama" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 text-slate-800 text-sm" placeholder="cth: Muhammad Imam Suwiji, S.Pd.SD., M.Pd.">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-teal-100 mb-1">Asal Sekolah / Unit Kerja</label>
-                            <select id="instansi" class="w-full px-3 py-2.5 bg-teal-950/60 border border-teal-600/50 rounded-xl focus:ring-2 focus:ring-amber-400 text-white text-sm">
-                                <option value="" class="bg-teal-950 text-teal-300">-- Pilih Sekolah Asal --</option>
-                                <option value="SD NEGERI BANDUNGREJO 1 MRANGGEN" class="bg-teal-950">SD NEGERI BANDUNGREJO 1 MRANGGEN</option>
-                                <option value="SD NEGERI BANDUNGREJO 2 MRANGGEN" class="bg-teal-950">SD NEGERI BANDUNGREJO 2 MRANGGEN</option>
-                                <option value="SD NEGERI BANYUMENENG 1" class="bg-teal-950">SD NEGERI BANYUMENENG 1</option>
-                                <option value="SD NEGERI BANYUMENENG 2" class="bg-teal-950">SD NEGERI BANYUMENENG 2</option>
-                                <option value="SD NEGERI BATURSARI 1" class="bg-teal-950">SD NEGERI BATURSARI 1</option>
-                                <option value="SD NEGERI BATURSARI 2" class="bg-teal-950">SD NEGERI BATURSARI 2</option>
-                                <option value="SD NEGERI BATURSARI 3" class="bg-teal-950">SD NEGERI BATURSARI 3</option>
-                                <option value="SD NEGERI BATURSARI 4" class="bg-teal-950">SD NEGERI BATURSARI 4</option>
-                                <option value="SD NEGERI BATURSARI 5" class="bg-teal-950">SD NEGERI BATURSARI 5</option>
-                                <option value="SD NEGERI BATURSARI 6" class="bg-teal-950">SD NEGERI BATURSARI 6</option>
-                                <option value="SD NEGERI BATURSARI 7" class="bg-teal-950">SD NEGERI BATURSARI 7</option>
-                                <option value="SD NEGERI BRUMBUNG" class="bg-teal-950">SD NEGERI BRUMBUNG</option>
-                                <option value="SD NEGERI CANDISARI 1" class="bg-teal-950">SD NEGERI CANDISARI 1</option>
-                                <option value="SD NEGERI CANDISARI 2" class="bg-teal-950">SD NEGERI CANDISARI 2</option>
-                                <option value="SD NEGERI JAMUS 1" class="bg-teal-950">SD NEGERI JAMUS 1</option>
-                                <option value="SD NEGERI KALITENGAH 1" class="bg-teal-950">SD NEGERI KALITENGAH 1</option>
-                                <option value="SD NEGERI KALITENGAH 2" class="bg-teal-950">SD NEGERI KALITENGAH 2</option>
-                                <option value="SD NEGERI KANGKUNG 1" class="bg-teal-950">SD NEGERI KANGKUNG 1</option>
-                                <option value="SD NEGERI KANGKUNG 2" class="bg-teal-950">SD NEGERI KANGKUNG 2</option>
-                                <option value="SD NEGERI KANGKUNG 3" class="bg-teal-950">SD NEGERI KANGKUNG 3</option>
-                                <option value="SD NEGERI KARANGASEM" class="bg-teal-950">SD NEGERI KARANGASEM</option>
-                                <option value="SD NEGERI KARANGSONO 1" class="bg-teal-950">SD NEGERI KARANGSONO 1</option>
-                                <option value="SD NEGERI KARANGSONO 2" class="bg-teal-950">SD NEGERI KARANGSONO 2</option>
-                                <option value="SD NEGERI KARANGSONO 3" class="bg-teal-950">SD NEGERI KARANGSONO 3</option>
-                                <option value="SD NEGERI KEBONBATUR 1" class="bg-teal-950">SD NEGERI KEBONBATUR 1</option>
-                                <option value="SD NEGERI KEBONBATUR 2" class="bg-teal-950">SD NEGERI KEBONBATUR 2</option>
-                                <option value="SD NEGERI KEMBANGARUM 1" class="bg-teal-950">SD NEGERI KEMBANGARUM 1</option>
-                                <option value="SD NEGERI KEMBANGARUM 2" class="bg-teal-950">SD NEGERI KEMBANGARUM 2</option>
-                                <option value="SD NEGERI KEMBANGARUM 4" class="bg-teal-950">SD NEGERI KEMBANGARUM 4</option>
-                                <option value="SD NEGERI MENUR" class="bg-teal-950">SD NEGERI MENUR</option>
-                                <option value="SD NEGERI MRANGGEN 1" class="bg-teal-950">SD NEGERI MRANGGEN 1</option>
-                                <option value="SD NEGERI MRANGGEN 2" class="bg-teal-950">SD NEGERI MRANGGEN 2</option>
-                                <option value="SD NEGERI MRANGGEN 3" class="bg-teal-950">SD NEGERI MRANGGEN 3</option>
-                                <option value="SD NEGERI MRANGGEN 4" class="bg-teal-950">SD NEGERI MRANGGEN 4</option>
-                                <option value="SD NEGERI NGEMPLAK" class="bg-teal-950">SD NEGERI NGEMPLAK</option>
-                                <option value="SD NEGERI SUMBEREJO 1" class="bg-teal-950">SD NEGERI SUMBEREJO 1</option>
-                                <option value="SD NEGERI SUMBEREJO 2" class="bg-teal-950">SD NEGERI SUMBEREJO 2</option>
-                                <option value="SD NEGERI TAMANSARI 1" class="bg-teal-950">SD NEGERI TAMANSARI 1</option>
-                                <option value="SD NEGERI TEGALARUM 1" class="bg-teal-950">SD NEGERI TEGALARUM 1</option>
-                                <option value="SD NEGERI TEGALARUM 2" class="bg-teal-950">SD NEGERI TEGALARUM 2</option>
-                                <option value="SD NEGERI WARU" class="bg-teal-950">SD NEGERI WARU</option>
-                                <option value="SD NEGERI WRINGINJAJAR 1" class="bg-teal-950">SD NEGERI WRINGINJAJAR 1</option>
-                                <option value="SD NEGERI WRINGINJAJAR 3" class="bg-teal-950">SD NEGERI WRINGINJAJAR 3</option>
-                                <option value="SDS INSAN TELADAN" class="bg-teal-950">SDS INSAN TELADAN</option>
-                                <option value="SDS ISLAM DIPONEGORO" class="bg-teal-950">SDS ISLAM DIPONEGORO</option>
-                                <option value="SDS ISLAM KAFRAWI" class="bg-teal-950">SDS ISLAM KAFRAWI</option>
-                                <option value="SDS IT AZ-ZAHRO MRANGGEN" class="bg-teal-950">SDS IT AZ-ZAHRO MRANGGEN</option>
-                                <option value="SDS IT MIFTAHUL HIDAYAH" class="bg-teal-950">SDS IT MIFTAHUL HIDAYAH</option>
-                                <option value="SDS IT PERMATA BUNDA" class="bg-teal-950">SDS IT PERMATA BUNDA</option>
-                                <option value="SDS KRISTEN DIAN WACANA" class="bg-teal-950">SDS KRISTEN DIAN WACANA</option>
-                                <option value="SDS KY AGENG GIRI" class="bg-teal-950">SDS KY AGENG GIRI</option>
-                                <option value="SDS MUHAMMADIYAH PUCANG GADING" class="bg-teal-950">SDS MUHAMMADIYAH PUCANG GADING</option>
-                                <option value="SDS TERPADU DARUNNAJAH" class="bg-teal-950">SDS TERPADU DARUNNAJAH</option>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Asal Sekolah / Unit Kerja</label>
+                            <select id="instansi" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 text-slate-800 text-sm">
+                                <option value="">-- Pilih Sekolah Asal --</option>
+                                <option value="SD NEGERI BANDUNGREJO 1 MRANGGEN">SD NEGERI BANDUNGREJO 1 MRANGGEN</option>
+                                <option value="SD NEGERI BANDUNGREJO 2 MRANGGEN">SD NEGERI BANDUNGREJO 2 MRANGGEN</option>
+                                <option value="SD NEGERI BANYUMENENG 1">SD NEGERI BANYUMENENG 1</option>
+                                <option value="SD NEGERI BANYUMENENG 2">SD NEGERI BANYUMENENG 2</option>
+                                <option value="SD NEGERI BATURSARI 1">SD NEGERI BATURSARI 1</option>
+                                <option value="SD NEGERI BATURSARI 2">SD NEGERI BATURSARI 2</option>
+                                <option value="SD NEGERI BATURSARI 3">SD NEGERI BATURSARI 3</option>
+                                <option value="SD NEGERI BATURSARI 4">SD NEGERI BATURSARI 4</option>
+                                <option value="SD NEGERI BATURSARI 5">SD NEGERI BATURSARI 5</option>
+                                <option value="SD NEGERI BATURSARI 6">SD NEGERI BATURSARI 6</option>
+                                <option value="SD NEGERI BATURSARI 7">SD NEGERI BATURSARI 7</option>
+                                <option value="SD NEGERI BRUMBUNG">SD NEGERI BRUMBUNG</option>
+                                <option value="SD NEGERI CANDISARI 1">SD NEGERI CANDISARI 1</option>
+                                <option value="SD NEGERI CANDISARI 2">SD NEGERI CANDISARI 2</option>
+                                <option value="SD NEGERI JAMUS 1">SD NEGERI JAMUS 1</option>
+                                <option value="SD NEGERI KALITENGAH 1">SD NEGERI KALITENGAH 1</option>
+                                <option value="SD NEGERI KALITENGAH 2">SD NEGERI KALITENGAH 2</option>
+                                <option value="SD NEGERI KANGKUNG 1">SD NEGERI KANGKUNG 1</option>
+                                <option value="SD NEGERI KANGKUNG 2">SD NEGERI KANGKUNG 2</option>
+                                <option value="SD NEGERI KANGKUNG 3">SD NEGERI KANGKUNG 3</option>
+                                <option value="SD NEGERI KARANGASEM">SD NEGERI KARANGASEM</option>
+                                <option value="SD NEGERI KARANGSONO 1">SD NEGERI KARANGSONO 1</option>
+                                <option value="SD NEGERI KARANGSONO 2">SD NEGERI KARANGSONO 2</option>
+                                <option value="SD NEGERI KARANGSONO 3">SD NEGERI KARANGSONO 3</option>
+                                <option value="SD NEGERI KEBONBATUR 1">SD NEGERI KEBONBATUR 1</option>
+                                <option value="SD NEGERI KEBONBATUR 2">SD NEGERI KEBONBATUR 2</option>
+                                <option value="SD NEGERI KEMBANGARUM 1">SD NEGERI KEMBANGARUM 1</option>
+                                <option value="SD NEGERI KEMBANGARUM 2">SD NEGERI KEMBANGARUM 2</option>
+                                <option value="SD NEGERI KEMBANGARUM 4">SD NEGERI KEMBANGARUM 4</option>
+                                <option value="SD NEGERI MENUR">SD NEGERI MENUR</option>
+                                <option value="SD NEGERI MRANGGEN 1">SD NEGERI MRANGGEN 1</option>
+                                <option value="SD NEGERI MRANGGEN 2">SD NEGERI MRANGGEN 2</option>
+                                <option value="SD NEGERI MRANGGEN 3">SD NEGERI MRANGGEN 3</option>
+                                <option value="SD NEGERI MRANGGEN 4">SD NEGERI MRANGGEN 4</option>
+                                <option value="SD NEGERI NGEMPLAK">SD NEGERI NGEMPLAK</option>
+                                <option value="SD NEGERI SUMBEREJO 1">SD NEGERI SUMBEREJO 1</option>
+                                <option value="SD NEGERI SUMBEREJO 2">SD NEGERI SUMBEREJO 2</option>
+                                <option value="SD NEGERI TAMANSARI 1">SD NEGERI TAMANSARI 1</option>
+                                <option value="SD NEGERI TEGALARUM 1">SD NEGERI TEGALARUM 1</option>
+                                <option value="SD NEGERI TEGALARUM 2">SD NEGERI TEGALARUM 2</option>
+                                <option value="SD NEGERI WARU">SD NEGERI WARU</option>
+                                <option value="SD NEGERI WRINGINJAJAR 1">SD NEGERI WRINGINJAJAR 1</option>
+                                <option value="SD NEGERI WRINGINJAJAR 3">SD NEGERI WRINGINJAJAR 3</option>
+                                <option value="SDS INSAN TELADAN">SDS INSAN TELADAN</option>
+                                <option value="SDS ISLAM DIPONEGORO">SDS ISLAM DIPONEGORO</option>
+                                <option value="SDS ISLAM KAFRAWI">SDS ISLAM KAFRAWI</option>
+                                <option value="SDS IT AZ-ZAHRO MRANGGEN">SDS IT AZ-ZAHRO MRANGGEN</option>
+                                <option value="SDS IT MIFTAHUL HIDAYAH">SDS IT MIFTAHUL HIDAYAH</option>
+                                <option value="SDS IT PERMATA BUNDA">SDS IT PERMATA BUNDA</option>
+                                <option value="SDS KRISTEN DIAN WACANA">SDS KRISTEN DIAN WACANA</option>
+                                <option value="SDS KY AGENG GIRI">SDS KY AGENG GIRI</option>
+                                <option value="SDS MUHAMMADIYAH PUCANG GADING">SDS MUHAMMADIYAH PUCANG GADING</option>
+                                <option value="SDS TERPADU DARUNNAJAH">SDS TERPADU DARUNNAJAH</option>
                             </select>
                         </div>
                     </div>
 
-                    <button type="button" onclick="goToQuestions()" class="w-full mt-4 bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-slate-950 font-bold py-3 rounded-xl transition text-sm shadow-md">
+                    <button type="button" onclick="goToQuestions()" class="w-full mt-4 bg-teal-600 hover:bg-teal-700 text-white font-medium py-3 rounded-xl transition text-sm shadow-sm">
                         Lanjut ke Pertanyaan Refleksi ➡️
                     </button>
                 </div>
 
                 <!-- TAHAP 2: DAFTAR PERTANYAAN & JAWABAN -->
                 <div id="stepQuestions" class="hidden space-y-6">
-                    <div class="border-b border-teal-600/40 pb-3 mb-4 flex justify-between items-center">
+                    <div class="border-b border-slate-100 pb-3 mb-4 flex justify-between items-center">
                         <div>
-                            <h3 class="font-bold text-amber-300 text-base">📝 Langkah 2: Lembar Pertanyaan Refleksi</h3>
-                            <p class="text-xs text-teal-200">Jawablah pertanyaan di bawah ini berdasarkan pengalaman mengajar Anda.</p>
+                            <h3 class="font-bold text-teal-800 text-base">📝 Langkah 2: Lembar Pertanyaan Refleksi</h3>
+                            <p class="text-xs text-slate-500">Jawablah pertanyaan di bawah ini berdasarkan pengalaman mengajar Anda.</p>
                         </div>
-                        <button type="button" onclick="backToIdentity()" class="text-xs text-amber-300 font-semibold hover:underline">⬅️ Ubah Identitas</button>
+                        <button type="button" onclick="backToIdentity()" class="text-xs text-teal-600 font-semibold hover:underline">⬅️ Ubah Identitas</button>
                     </div>
 
                     <!-- Pertanyaan 1 -->
                     <div>
-                        <label class="block text-sm font-semibold text-white mb-1">1. Evaluasi Praktik Mengajar Saat Ini (Peristiwa / Facts)</label>
-                        <p class="text-xs text-teal-200 mb-2">Dari pengalaman mengajar Anda selama ini, praktik atau kebiasaan apa yang tanpa sadar masih seragam (satu ukuran untuk semua / one size fits all) dalam hal konten, proses, maupun produk pembelajaran?</p>
-                        <textarea id="p1" rows="3" class="w-full px-3 py-2.5 bg-teal-950/60 border border-teal-600/50 rounded-xl focus:ring-2 focus:ring-amber-400 text-white placeholder-teal-400/60 text-sm" placeholder="Tuliskan refleksi Anda secara jujur..."></textarea>
+                        <label class="block text-sm font-semibold text-slate-800 mb-1">1. Evaluasi Praktik Mengajar Saat Ini (Peristiwa / Facts)</label>
+                        <p class="text-xs text-slate-500 mb-2">Dari pengalaman mengajar Anda selama ini, praktik atau kebiasaan apa yang tanpa sadar masih seragam (satu ukuran untuk semua / one size fits all) dalam hal konten, proses, maupun produk pembelajaran?</p>
+                        <textarea id="p1" rows="3" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 text-slate-800 text-sm" placeholder="Tuliskan refleksi Anda secara jujur..."></textarea>
                     </div>
 
                     <!-- Pertanyaan 2 -->
                     <div>
-                        <label class="block text-sm font-semibold text-white mb-1">2. Kesadaran Kebutuhan Murid (Perasaan / Feelings)</label>
-                        <p class="text-xs text-teal-200 mb-2">Bagaimana perasaan Anda ketika menyadari bahwa di dalam kelas terdapat murid yang 'tertinggal' atau 'bosan'? Apa yang dirasakan murid-murid tersebut dalam persepsi Anda?</p>
-                        <textarea id="p2" rows="3" class="w-full px-3 py-2.5 bg-teal-950/60 border border-teal-600/50 rounded-xl focus:ring-2 focus:ring-amber-400 text-white placeholder-teal-400/60 text-sm" placeholder="Tuliskan perasaan dan empati Anda..."></textarea>
+                        <label class="block text-sm font-semibold text-slate-800 mb-1">2. Kesadaran Kebutuhan Murid (Perasaan / Feelings)</label>
+                        <p class="text-xs text-slate-500 mb-2">Bagaimana perasaan Anda ketika menyadari bahwa di dalam kelas terdapat murid yang 'tertinggal' atau 'bosan'? Apa yang dirasakan murid-murid tersebut dalam persepsi Anda?</p>
+                        <textarea id="p2" rows="3" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 text-slate-800 text-sm" placeholder="Tuliskan perasaan dan empati Anda..."></textarea>
                     </div>
 
                     <!-- Pertanyaan 3 -->
                     <div>
-                        <label class="block text-sm font-semibold text-white mb-1">3. Meluruskan Kesalahpahaman (Pembelajaran / Findings)</label>
-                        <p class="text-xs text-teal-200 mb-2">Wawasan atau pemahaman baru apa tentang Pembelajaran Berdiferensiasi yang paling mengubah sudut pandang Anda setelah mempelajari Modul 4 ini?</p>
-                        <textarea id="p3" rows="3" class="w-full px-3 py-2.5 bg-teal-950/60 border border-teal-600/50 rounded-xl focus:ring-2 focus:ring-amber-400 text-white placeholder-teal-400/60 text-sm" placeholder="Tuliskan wawasan baru Anda..."></textarea>
+                        <label class="block text-sm font-semibold text-slate-800 mb-1">3. Meluruskan Kesalahpahaman (Pembelajaran / Findings)</label>
+                        <p class="text-xs text-slate-500 mb-2">Wawasan atau pemahaman baru apa tentang Pembelajaran Berdiferensiasi yang paling mengubah sudut pandang Anda setelah mempelajari Modul 4 ini?</p>
+                        <textarea id="p3" rows="3" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 text-slate-800 text-sm" placeholder="Tuliskan wawasan baru Anda..."></textarea>
                     </div>
 
                     <!-- Pertanyaan 4 -->
                     <div>
-                        <label class="block text-sm font-semibold text-white mb-1">4. Pemetaan Tantangan Utama (Tantangan / Challenges)</label>
-                        <p class="text-xs text-teal-200 mb-2">Tantangan terbesar apa yang diperkirakan akan dihadapi saat mempraktikkan diferensiasi di sekolah, dan langkah kecil apa untuk mengatasinya?</p>
-                        <textarea id="p4" rows="3" class="w-full px-3 py-2.5 bg-teal-950/60 border border-teal-600/50 rounded-xl focus:ring-2 focus:ring-amber-400 text-white placeholder-teal-400/60 text-sm" placeholder="Tuliskan tantangan dan solusi kecilnya..."></textarea>
+                        <label class="block text-sm font-semibold text-slate-800 mb-1">4. Pemetaan Tantangan Utama (Tantangan / Challenges)</label>
+                        <p class="text-xs text-slate-500 mb-2">Tantangan terbesar apa yang diperkirakan akan dihadapi saat mempraktikkan diferensiasi di sekolah, dan langkah kecil apa untuk mengatasinya?</p>
+                        <textarea id="p4" rows="3" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 text-slate-800 text-sm" placeholder="Tuliskan tantangan dan solusi kecilnya..."></textarea>
                     </div>
 
                     <!-- Pertanyaan 5 -->
                     <div>
-                        <label class="block text-sm font-semibold text-white mb-1">5. Rencana Aksi Nyata (Penerapan / Future)</label>
-                        <p class="text-xs text-teal-200 mb-2">Pilih SATU topik minggu depan: Bentuk diferensiasi sederhana apa (konten, proses, produk, lingkungan) yang berkomitmen akan diuji coba?</p>
-                        <textarea id="p5" rows="3" class="w-full px-3 py-2.5 bg-teal-950/60 border border-teal-600/50 rounded-xl focus:ring-2 focus:ring-amber-400 text-white placeholder-teal-400/60 text-sm" placeholder="Tuliskan rencana aksi nyata Anda..."></textarea>
+                        <label class="block text-sm font-semibold text-slate-800 mb-1">5. Rencana Aksi Nyata (Penerapan / Future)</label>
+                        <p class="text-xs text-slate-500 mb-2">Pilih SATU topik minggu depan: Bentuk diferensiasi sederhana apa (konten, proses, produk, lingkungan) yang berkomitmen akan diuji coba?</p>
+                        <textarea id="p5" rows="3" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 text-slate-800 text-sm" placeholder="Tuliskan rencana aksi nyata Anda..."></textarea>
                     </div>
 
-                    <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-slate-950 font-extrabold py-3.5 rounded-xl transition duration-200 text-sm shadow-xl">
+                    <button type="submit" id="submitBtn" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-medium py-3.5 rounded-xl transition duration-200 text-sm shadow-sm">
                         Kirim Refleksi 🚀
                     </button>
                 </div>
@@ -184,22 +184,22 @@
 
             <!-- TAHAP 3: KARTU SELESAI MENGERJAKAN (SUCCESS CARD) -->
             <div id="successCard" class="hidden text-center py-8 px-4 space-y-6">
-                <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-tr from-amber-400 to-orange-500 rounded-full shadow-xl text-4xl animate-bounce text-slate-950 border-2 border-amber-200">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-amber-100 text-amber-600 rounded-full shadow-sm text-4xl animate-bounce">
                     🎉
                 </div>
                 <div class="space-y-2">
-                    <h2 class="text-2xl font-bold text-white">Refleksi Berhasil Disimpan!</h2>
-                    <p class="text-sm text-teal-100 max-w-md mx-auto leading-relaxed">
+                    <h2 class="text-2xl font-bold text-slate-800">Refleksi Berhasil Disimpan!</h2>
+                    <p class="text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
                         Terima kasih telah meluangkan waktu untuk berefleksi. Setiap jawaban adalah langkah awal untuk mengenali kekuatan, menemukan ruang perbaikan, dan bertumbuh menjadi pendidik yang lebih baik.
                     </p>
                 </div>
-                <div class="p-4 bg-teal-950/60 border border-teal-600/40 rounded-2xl max-w-md mx-auto">
-                    <p class="text-xs font-medium text-amber-300 italic">
+                <div class="p-4 bg-teal-50/60 border border-teal-100 rounded-2xl max-w-md mx-auto">
+                    <p class="text-xs font-medium text-teal-800 italic">
                         ✨ "Refleksi hari ini, inspirasi untuk perubahan esok hari. Teruslah belajar, bertumbuh, dan menghadirkan pembelajaran yang bermakna bagi peserta didik."
                     </p>
                 </div>
                 <div>
-                    <button onclick="resetForm()" class="px-6 py-2.5 bg-teal-900 hover:bg-teal-800 text-teal-200 text-xs font-semibold rounded-xl transition shadow-sm border border-teal-600/50">
+                    <button onclick="resetForm()" class="px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition shadow-sm">
                         Kirim Refleksi Lain / Perbarui Data 🔄
                     </button>
                 </div>
@@ -208,7 +208,7 @@
         </div>
     </main>
 
-    <footer class="bg-teal-950 border-t border-teal-800/60 py-6 text-center text-xs text-teal-300">
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
         <p>Created by Muhammad Imam Suwiji © Sie Keguruan | 2026</p>
     </footer>
 
