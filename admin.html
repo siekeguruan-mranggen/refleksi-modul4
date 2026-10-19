@@ -17,20 +17,24 @@
                 <h1 class="text-xl font-bold mt-2">Monitoring & Rekapitulasi Refleksi Peserta</h1>
             </div>
             <div class="flex flex-wrap gap-2">
-                <!-- Tombol Kunci / Buka Form -->
-                <button id="lockBtn" onclick="toggleLockForm()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5">
-                    🔒 <span id="lockStatusText">Kunci Form</span>
+                <!-- Tombol Kunci Form -->
+                <button onclick="setFormLock(true)" class="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5">
+                    🔒 Kunci Form
+                </button>
+                <!-- Tombol Buka Kunci Form -->
+                <button onclick="setFormLock(false)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5">
+                    🔓 Buka Kunci
                 </button>
                 <!-- Tombol Download CSV -->
-                <button onclick="downloadCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5">
+                <button onclick="downloadCSV()" class="bg-teal-600 hover:bg-teal-700 text-white text-xs font-medium px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5">
                     📥 CSV
                 </button>
-                <!-- Tombol Cetak / PDF Terurut Per Sekolah (Menyesuaikan Filter) -->
+                <!-- Tombol Cetak / PDF Terurut Per Sekolah -->
                 <button onclick="printPDFReport()" class="bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-medium px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5">
                     🖨️ Cetak PDF
                 </button>
                 <!-- Tombol Reset Data untuk Hari Rabu -->
-                <button onclick="resetAllData()" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5">
+                <button onclick="resetAllData()" class="bg-slate-700 hover:bg-slate-800 text-white text-xs font-bold px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5">
                     🗑️ Reset Data
                 </button>
             </div>
@@ -163,28 +167,11 @@
 
         let allData = [];
         let filteredData = [];
-        let isFormLocked = false;
 
-        // Pantau status lock form
-        onSnapshot(doc(db, "settings", "form_status"), (docSnap) => {
-            const btn = document.getElementById('lockBtn');
-            const statusText = document.getElementById('lockStatusText');
-            if (docSnap.exists() && docSnap.data().isLocked) {
-                isFormLocked = true;
-                btn.className = "bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5";
-                statusText.innerText = "Buka Form";
-            } else {
-                isFormLocked = false;
-                btn.className = "bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs px-3.5 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5";
-                statusText.innerText = "Kunci Form";
-            }
-        });
-
-        window.toggleLockForm = async function() {
+        window.setFormLock = async function(status) {
             try {
-                const newStatus = !isFormLocked;
-                await setDoc(doc(db, "settings", "form_status"), { isLocked: newStatus });
-                alert(newStatus ? "Form berhasil DIKUNCI! Peserta tidak dapat mengirim jawaban." : "Form berhasil DIBUKA KEMBALI!");
+                await setDoc(doc(db, "settings", "form_status"), { isLocked: status });
+                alert(status ? "Form berhasil DIKUNCI! Peserta tidak dapat mengirim jawaban." : "Form berhasil DIBUKA KEMBALI!");
             } catch (err) {
                 alert("Gagal mengubah status form: " + err.message);
             }
@@ -269,7 +256,6 @@
             const selectedSchool = document.getElementById('filterSekolah').value;
             let titleText = selectedSchool ? `REKAPITULASI SEKOLAH: ${selectedSchool}` : "REKAPITULASI KESELURUHAN (DIURUTKAN PER SEKOLAH)";
 
-            // Urutkan berdasarkan sekolah secara alfabetis (A-Z)
             let sortedData = [...filteredData].sort((a, b) => {
                 let schoolA = (a.instansi || "").toUpperCase();
                 let schoolB = (b.instansi || "").toUpperCase();
@@ -340,13 +326,13 @@
             printWindow.document.write(htmlContent);
             printWindow.document.close();
             printWindow.focus();
-            setTimeout(() => {
+            setTimeout => {
                 printWindow.print();
             }, 500);
         }
 
         window.resetAllData = async function() {
-            if (confirm("PERINGATAN: Apakah Anda yakin ingin MENGHAPUS SEMUA DATA rekapitulasi refleksi? Tindakan ini tidak dapat dibatalkan dan data akan bersih untuk kegiatan hari Rabu!")) {
+            if (confirm("PERINGATAN: Apakah Anda yakin ingin MENGHAPUS SEMUA DATA rekapitulasi refleksi? Tindakan ini tidak dapat dibatalkan!")) {
                 if (confirm("Konfirmasi sekali lagi: Yakin ingin menghapus seluruh data di database?")) {
                     try {
                         const querySnapshot = await getDocs(collection(db, "refleksi_modul4"));
