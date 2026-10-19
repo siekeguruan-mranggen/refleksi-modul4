@@ -11,14 +11,23 @@
 <body class="bg-gradient-to-br from-slate-900 via-indigo-950 to-purple-950 text-slate-100 min-h-screen flex flex-col justify-between">
 
     <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 shadow-lg">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row justify-between items-center">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div>
                 <span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-semibold px-3 py-1 rounded-full uppercase">Panel Admin</span>
-                <h1 class="text-xl font-bold mt-2">Monitoring & Download Refleksi Peserta</h1>
+                <h1 class="text-xl font-bold mt-2">Monitoring & Rekapitulasi Refleksi Peserta</h1>
             </div>
-            <div class="mt-3 sm:mt-0 flex gap-3">
-                <button onclick="downloadCSV()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium px-4 py-2.5 rounded-xl transition shadow-lg shadow-emerald-900/50 flex items-center gap-1.5">
-                    📥 Download Pekerjaan Peserta (.CSV)
+            <div class="flex flex-wrap gap-3">
+                <!-- Tombol Kunci / Buka Form -->
+                <button id="lockBtn" onclick="toggleLockForm()" class="bg-amber-600 hover:bg-amber-500 text-white text-xs font-medium px-4 py-2.5 rounded-xl transition shadow-lg flex items-center gap-1.5">
+                    🔒 <span id="lockStatusText">Kunci Form Peserta</span>
+                </button>
+                <!-- Tombol Download CSV -->
+                <button onclick="downloadCSV()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium px-4 py-2.5 rounded-xl transition shadow-lg flex items-center gap-1.5">
+                    📥 Download CSV
+                </button>
+                <!-- Tombol Cetak / PDF per Sekolah -->
+                <button onclick="printPDFReport()" class="bg-purple-600 hover:bg-purple-500 text-white text-xs font-medium px-4 py-2.5 rounded-xl transition shadow-lg flex items-center gap-1.5">
+                    🖨️ Cetak Rekap PDF / Sekolah
                 </button>
             </div>
         </div>
@@ -67,10 +76,10 @@
         <p>Created by Muhammad Imam Suwiji Copyright Sie Keguruan 2026</p>
     </footer>
 
-    <!-- Firebase SDK & Konfigurasi -->
+    <!-- Firebase SDK & Script Admin -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, query, orderBy, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAlg5kJmxB5sjNAPkiZIeRHiunEfDAVwQ",
@@ -85,6 +94,32 @@
         const db = getFirestore(app);
 
         let allData = [];
+        let isFormLocked = false;
+
+        // Pantau status lock form
+        onSnapshot(doc(db, "settings", "form_status"), (docSnap) => {
+            const btn = document.getElementById('lockBtn');
+            const statusText = document.getElementById('lockStatusText');
+            if (docSnap.exists() && docSnap.data().isLocked) {
+                isFormLocked = true;
+                btn.className = "bg-rose-600 hover:bg-rose-500 text-white text-xs font-medium px-4 py-2.5 rounded-xl transition shadow-lg flex items-center gap-1.5";
+                statusText.innerText = "Buka Kembali Form";
+            } else {
+                isFormLocked = false;
+                btn.className = "bg-amber-600 hover:bg-amber-500 text-white text-xs font-medium px-4 py-2.5 rounded-xl transition shadow-lg flex items-center gap-1.5";
+                statusText.innerText = "Kunci Form Peserta";
+            }
+        });
+
+        window.toggleLockForm = async function() {
+            try {
+                const newStatus = !isFormLocked;
+                await setDoc(doc(db, "settings", "form_status"), { isLocked: newStatus });
+                alert(newStatus ? "Form berhasil DIKUNCI! Peserta tidak dapat mengirim jawaban." : "Form berhasil DIBUKA KEMBALI!");
+            } catch (err) {
+                alert("Gagal mengubah status form: " + err.message);
+            }
+        }
 
         const q = query(collection(db, "refleksi_modul4"), orderBy("createdAt", "desc"));
         onSnapshot(q, (snapshot) => {
@@ -140,6 +175,79 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+        }
+
+        window.printPDFReport = function() {
+            if (allData.length === 0) {
+                alert("Belum ada data untuk dicetak!");
+                return;
+            }
+
+            let printWindow = window.open('', '_blank');
+            let htmlContent = `
+                <html>
+                <head>
+                    <title>Rekapitulasi Refleksi Modul 4 - Kecamatan Mranggen</title>
+                    <style>
+                        body { font-family: sans-serif; padding: 20px; color: #333; }
+                        h1 { text-align: center; font-size: 18px; margin-bottom: 5px; }
+                        h2 { text-align: center; font-size: 14px; color: #555; margin-bottom: 20px; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 11px; }
+                        th, td { border: 1px solid #ddd; padding: 6px; text-align: left; vertical-align: top; }
+                        th { background-color: #f2f2f2; }
+                        .footer { margin-top: 30px; text-align: right; font-size: 12px; }
+                    </style>
+                </head>
+                <body>
+                    <h1>REKAPITULASI HASIL REFLEKSI PERTEMUAN KE-3 MODUL 4</h1>
+                    <h2>Kegiatan Guru Belajar Kecamatan Mranggen</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Guru & Gelar</th>
+                                <th>Unit Kerja / Sekolah</th>
+                                <th>1. Evaluasi Praktik</th>
+                                <th>2. Perasaan Murid</th>
+                                <th>3. Pemahaman Baru</th>
+                                <th>4. Tantangan</th>
+                                <th>5. Rencana Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            allData.forEach((row, index) => {
+                htmlContent += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td><b>${escapeHtml(row.nama)}</b></td>
+                        <td>${escapeHtml(row.instansi)}</td>
+                        <td>${escapeHtml(row.p1)}</td>
+                        <td>${escapeHtml(row.p2)}</td>
+                        <td>${escapeHtml(row.p3)}</td>
+                        <td>${escapeHtml(row.p4)}</td>
+                        <td>${escapeHtml(row.p5)}</td>
+                    </tr>
+                `;
+            });
+
+            htmlContent += `
+                        </tbody>
+                    </table>
+                    <div class="footer">
+                        <p>Created by Muhammad Imam Suwiji Copyright Sie Keguruan 2026</p>
+                    </div>
+                </body>
+                </html>
+            `;
+
+            printWindow.document.write(htmlContent);
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => {
+                printWindow.print();
+            }, 500);
         }
 
         function escapeHtml(text) {
