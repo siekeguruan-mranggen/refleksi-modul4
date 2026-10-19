@@ -12,7 +12,7 @@
 
     <header class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white shadow-lg">
         <div class="max-w-3xl mx-auto px-4 py-8 text-center">
-            <span class="bg-white/20 backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Modul 4 • Pertemuan 3</span>
+            <span class="bg-white/25 backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Modul 4 • Pertemuan 3</span>
             <h1 class="text-2xl sm:text-4xl font-bold mt-2">Lembar Refleksi Diri Peserta</h1>
             <p class="text-pink-100 text-xs sm:text-sm mt-1">Guru Belajar - Pembelajaran Berdiferensiasi | Kecamatan Mranggen</p>
         </div>
@@ -20,6 +20,8 @@
 
     <main class="max-w-3xl mx-auto px-4 py-8 w-full flex-grow">
         <div class="bg-white/90 backdrop-blur-xl p-6 sm:p-8 rounded-3xl shadow-xl border border-white/50">
+            
+            <!-- FORMULIR REFLEKSI -->
             <form id="reflectionForm" class="space-y-6">
                 <!-- Data Diri -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-4 border-b border-slate-100">
@@ -128,10 +130,29 @@
                 </button>
             </form>
 
-            <!-- Notifikasi Sukses -->
-            <div id="successAlert" class="hidden mt-4 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-center text-sm">
-                ✅ Refleksi berhasil dikirim! Terima kasih atas partisipasi Anda.
+            <!-- KARTU SUKSES / APRESIASI SETELAH MENGIRIM -->
+            <div id="successCard" class="hidden text-center py-8 px-4 space-y-6">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-tr from-amber-400 to-pink-500 rounded-full shadow-lg text-4xl animate-bounce">
+                    🎉
+                </div>
+                <div class="space-y-2">
+                    <h2 class="text-2xl font-bold text-slate-900">Refleksi Berhasil Disimpan!</h2>
+                    <p class="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+                        Terima kasih telah meluangkan waktu untuk berefleksi. Setiap jawaban adalah langkah awal untuk mengenali kekuatan, menemukan ruang perbaikan, dan bertumbuh menjadi pendidik yang lebih baik.
+                    </p>
+                </div>
+                <div class="p-4 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-100 rounded-2xl max-w-md mx-auto">
+                    <p class="text-xs font-medium text-purple-900 italic">
+                        ✨ "Refleksi hari ini, inspirasi untuk perubahan esok hari. Teruslah belajar, bertumbuh, dan menghadirkan pembelajaran yang bermakna bagi peserta didik."
+                    </p>
+                </div>
+                <div>
+                    <button onclick="resetForm()" class="px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition shadow-sm">
+                        Kirim Refleksi Lain / Perbarui Data 🔄
+                    </button>
+                </div>
             </div>
+
         </div>
     </main>
 
@@ -156,7 +177,10 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        document.getElementById('reflectionForm').addEventListener('submit', async function(e) {
+        const form = document.getElementById('reflectionForm');
+        const successCard = document.getElementById('successCard');
+
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
             btn.disabled = true;
@@ -174,16 +198,26 @@
                     createdAt: serverTimestamp()
                 });
 
-                document.getElementById('reflectionForm').reset();
-                document.getElementById('successAlert').classList.remove('hidden');
-                setTimeout(() => document.getElementById('successAlert').classList.add('hidden'), 5000);
+                // Sembunyikan form dan tampilkan kartu sukses perayaan
+                form.classList.add('hidden');
+                successCard.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             } catch (error) {
                 alert("Gagal mengirim data: " + error.message);
-            } finally {
                 btn.disabled = false;
                 btn.innerText = "Kirim Refleksi 🚀";
             }
         });
+
+        window.resetForm = function() {
+            form.reset();
+            successCard.classList.add('hidden');
+            form.classList.remove('hidden');
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = false;
+            btn.innerText = "Kirim Refleksi 🚀";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
